@@ -10,7 +10,7 @@ This program is a simple contract written in Solidity, a programming language fo
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 ```
-and from the ERC-20 contract implemented the ```transfer```, ```mint``` and the ```burn``` functions.
+and from the ERC-20 contract implemented the ```transfer```, ```mintToken``` and the ```burnToken``` functions.
 
 - mintToken: allows only the owner of the contract to be able to mint tokens for users.
 - transfer: allows a user to transfer their tokens to another user

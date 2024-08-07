@@ -1,6 +1,6 @@
  
-# MetaERC20Token
-MetaERC20Token is a simple ERC20 smart contract. It is not a complete ERC20 functions. 
+# AvalToken
+AvalToken is a simple ERC20 smart contract. It is not a complete ERC20 functions. 
 
 ## Description
 This is a simple an ERC20 smart contract written in Solidity comprising ten functions: four defined functions and six automatically generated functions.
@@ -32,7 +32,7 @@ After cloning the github, do the following to get the code running on your compu
 - To interact with the functions in the contract, you can create another file in the script folder to write your interaction scripts.
 
 ## Authors
-Peter Fatukasi
+Rilwan Oyewole
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details

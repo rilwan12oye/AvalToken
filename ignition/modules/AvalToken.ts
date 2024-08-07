@@ -12,6 +12,3 @@ const AvalModule = buildModule("AvalModule", (m) => {
 });
 
 export default AvalModule;
-
-//to deploy
-//npx hardhat ignition deploy ignition/modules/Lock.ts --network localhost

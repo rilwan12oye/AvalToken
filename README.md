@@ -1,38 +1,75 @@
- 
+
 # AvalToken
-AvalToken is a simple ERC20 smart contract. It is not a complete ERC20 functions. 
+
+This Solidity program is a simple ERC-20 smart contract that allows the owner to mint tokens for users, while users can transfer tokens between themselves and also burn their owned tokens.
 
 ## Description
-This is a simple an ERC20 smart contract written in Solidity comprising ten functions: four defined functions and six automatically generated functions.
 
-The four defined functions are:
+This program is a simple contract written in Solidity, a programming language for developing smart contracts on the Ethereum blockchain. The smart contract imported the Openzeppelin ERC-20  and Ownable smart contract
+``` javascript
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+```
+and from the ERC-20 contract implemented the ```transfer```, ```mint``` and the ```burn``` functions.
 
-- mint(address _account, uint256 _amount): allows the owner of the contract to mint (_amount) token to user (_account).
-- balanceOf(address _owner): allows a user (_owner) to check his/her token balance in the contract.
-- transfer(address _to, uint256 _value): allows a user to transfer (_value) token owned to another user (_to).
-- burn(uint96 _amount): allows user (msg.sender) to burn (_amount) token no longer needed.
-
-The six automatically generated functions are:
-
-- owner(): returns the EOA address that deploys this contract.
-- tokenName(): returns the name given to the token at the point of deployment.
-- tokenSymbol(): returns the symbol given to the token at the point of deployment.
-- totalSupply(): returns the current total supply of the tokens.
-- tokenDecimal(): returns the decimal of the token.
-- MAX_SUPPLY(): returns 1000000 which is the maximum supply of the token.
+- mintToken: allows only the owner of the contract to be able to mint tokens for users.
+- transfer: allows a user to transfer their tokens to another user
+- burnToken: allows user to check burn their no-longer-needed tokens and that will be removed from the total supply of the token in circulation.
 
 ## Getting Started
-After cloning the github, do the following to get the code running on your computer.
 
-- Inside the project directory, in the terminal type: npm i
-- Open two terminals in your VS code or your preferred IDE
-- In the first terminal type: ```npx hardhat compile``` to compile your contracts
-- In the second terminal type: ```npx hardhat node``` to set up local nodes
-- Go back to the first terminal and type: ```npx hardhat ignition deploy ./ignition/modules/MetaERC20Token.ts --network localhost``` to deploy your contract
-- To interact with the functions in the contract, you can create another file in the script folder to write your interaction scripts.
+### Executing program
+
+To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at https://remix.ethereum.org/.
+
+Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a .sol extension (e.g., AvalToken.sol). Copy and paste the following code into the file:
+
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract AvalToken is ERC20, Ownable {
+
+
+    constructor(string memory tokenName, string memory tokenSymbol)
+        ERC20(tokenName, tokenSymbol)
+        Ownable(msg.sender)
+    {}
+
+    function transfer(address to, uint256 value)
+        public
+        override
+        returns (bool)
+    {
+        address owner = _msgSender();
+        _transfer(owner, to, value);
+        return true;
+    }
+
+    function mintToken(address account, uint256 amount) public onlyOwner {
+        _mint(account, amount);
+    }
+
+    function burnToken(uint96 amount) external {
+        _burn(msg.sender, amount);
+    }
+}
+```
+
+To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.17" (or another compatible version), and then click on the "Compile AvalToken.sol" button.
+
+Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "AvalToken" contract from the dropdown menu, and then click on the "Deploy" button.
+
+Once the contract is deployed, you can interact with it the contract.
 
 ## Authors
+
 Rilwan Oyewole
 
 ## License
+
 This project is licensed under the MIT License - see the LICENSE.md file for details
+
